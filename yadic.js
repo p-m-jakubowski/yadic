@@ -20,8 +20,6 @@ Yadic.prototype.get = function(name) {
 
 function createFactory(mod, yadic) {
     switch (typeof mod) {
-        case 'string':
-            return createFactoryFromPath(mod, yadic);
         case 'function':
             if (mod['@type'] !== undefined) {
                 return createFactoryFromFunction(mod, yadic);
@@ -33,10 +31,6 @@ function createFactory(mod, yadic) {
         default:
             throw new Error('module must be a path, function or object');
     }
-}
-
-function createFactoryFromPath(modulePath, yadic) {
-    return createFactory(require(modulePath), yadic);
 }
 
 function createFactoryFromPlainModule(mod) {

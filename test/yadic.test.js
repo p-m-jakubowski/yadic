@@ -8,37 +8,30 @@ describe('yadic', function() {
    
     describe('constructor', function() {
         
-        it('should load modules from path', function() {
-            new Yadic({
-                constructorModule: path.join(__dirname, './modules/constructor-module'),
-                factoryModule: path.join(__dirname, './modules/factory-module'),
-                plainModule: path.join(__dirname, './modules/plain-module'),
-                singletonModule: path.join(__dirname, './modules/singleton-module')
-            });
-        });
-
-        it('should load plain modules', function() {
+        it('should load modules', function() {
             new Yadic({
                 functionModule: function() {},
                 objectModule: {}
             });
         });
 
-        it('should throw an error for invalid path', function() {
+        it('should throw when module is a string', function() {
             expect(function() {
                 new Yadic({
-                    module: './a/b/c'
+                    module: 'string'
                 });
             }).toThrow();
         });
 
-        it('should throw when module is null or undefined', function() {
+        it('should throw when module is null', function() {
             expect(function() {
                 new Yadic({
                     module: null
                 });
             }).toThrow();
+        });
 
+        it('should throw when module is undefined', function() {
             expect(function() {
                 new Yadic({
                     module: undefined
