@@ -32,6 +32,20 @@ describe('yadic', function() {
             }).toThrow();
         });
 
+        it('should throw when module is null or undefined', function() {
+            expect(function() {
+                new Yadic({
+                    module: null
+                });
+            }).toThrow();
+
+            expect(function() {
+                new Yadic({
+                    module: undefined
+                });
+            }).toThrow();
+        });
+
     });
 
     describe('#addFactories', function() {
@@ -69,7 +83,7 @@ describe('yadic', function() {
 
     describe('#get', function() {
 
-        it('should create module from constructor when @type is `constructor`', function() {
+        it('should create instance from constructor when @type is `constructor`', function() {
             var Constructor = function() {};
             Constructor['@type'] = 'constructor';
 
@@ -82,7 +96,7 @@ describe('yadic', function() {
             });
         });
 
-        it('should create different module from constructor for each call', function() {
+        it('should create different instance from constructor for each call', function() {
             var Constructor = function() {};
             Constructor['@type'] = 'constructor';
 
@@ -97,7 +111,7 @@ describe('yadic', function() {
             });
         });
 
-        it('should create module from factory when @type is factory', function() {
+        it('should create instance from factory when @type is `factory`', function() {
             var factory = jest.fn(function() {
                 return {name: 'instance'};
             });
@@ -112,7 +126,7 @@ describe('yadic', function() {
             });
         });
 
-        it('should create different module from factory for each call', function() {
+        it('should create different instance from factory for each call', function() {
             var factory = jest.fn(function() {
                 return {name: 'instance'};
             });
