@@ -48,39 +48,6 @@ describe('yadic', function() {
 
     });
 
-    describe('#addFactories', function() {
-
-        it('should load modules from path', function() {
-            var yadic = new Yadic();
-
-            yadic.addFactories({
-                constructorModule: path.join(__dirname, './modules/constructor-module'),
-                factoryModule: path.join(__dirname, './modules/factory-module'),
-                plainModule: path.join(__dirname, './modules/plain-module'),
-                singletonModule: path.join(__dirname, './modules/singleton-module')
-            });
-        });
-
-        it('should load plain modules', function() {
-            var yadic = new Yadic();
-
-            yadic.addFactories({
-                functionModule: function() {},
-                objectModule: {}
-            });
-        });
-
-        it('should throw an error for invalid path', function() {
-            var yadic = new Yadic();
-            expect(function() {
-                yadic.addFactories({
-                    module: './a/b/c'
-                });
-            }).toThrow();
-        });
-
-    });
-
     describe('#get', function() {
 
         it('should create instance from constructor when @type is `constructor`', function() {
