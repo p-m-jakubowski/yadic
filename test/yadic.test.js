@@ -48,6 +48,22 @@ describe('yadic', function() {
 
     });
 
+    describe('#add', function() {
+        
+        it('should add modules to existing container', function() {
+            var yadic = new Yadic({});
+            var Constructor = function() {};
+            Constructor['@type'] = 'constructor';
+
+            yadic.add({
+                constructorModule: Constructor
+            });
+
+            return yadic.get('constructorModule');
+        });
+
+    });
+
     describe('#get', function() {
 
         it('should create instance from constructor when @type is `constructor`', function() {
