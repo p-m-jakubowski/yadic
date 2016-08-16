@@ -174,9 +174,12 @@ describe('yadic', function() {
         it('should reject for unknown module', function() {
             var yadic = new Yadic({});
 
-            return yadic.get('unknown-module').catch(function(error) {
-                expect(error instanceof Error).toBe(true);
-            });
+            return yadic.get('unknown-module').then(function() {
+                    expect(false).toBe(true);
+                })
+                .catch(function(error) {
+                    expect(error instanceof Error).toBe(true);
+                });
         });
 
         it('should reject for unknown dependencies to inject', function() {
@@ -188,9 +191,12 @@ describe('yadic', function() {
                 constructorWithDependencies: ConstructorWithDependencies
             });
 
-            return yadic.get('constructorWithDependencies').catch(function(error) {
-                expect(error instanceof Error).toBe(true);
-            });
+            return yadic.get('constructorWithDependencies').then(function() {
+                    expect(false).toBe(true);
+                })
+                .catch(function(error) {
+                    expect(error instanceof Error).toBe(true);
+                });
         });
 
     });
