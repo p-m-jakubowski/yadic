@@ -56,6 +56,15 @@ describe('yadic', function() {
             });
         });
 
+        it('should throw an error for invalid path', function() {
+            var yadic = new Yadic();
+            expect(function() {
+                yadic.addFactories({
+                    module: './a/b/c'
+                });
+            }).toThrow();
+        });
+
     });
 
     describe('#get', function() {
