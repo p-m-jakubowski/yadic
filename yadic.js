@@ -49,17 +49,17 @@ function createFactoryFromFunction(moduleFn, yadic) {
     if (moduleFn['@singleton']) {
         var singleton;
         return function() {
-            singleton = singleton || createModule(moduleFn, yadic);
+            singleton = singleton || createComponent(moduleFn, yadic);
             return singleton;
         };
     } else {
         return function() {
-            return createModule(moduleFn, yadic);
+            return createComponent(moduleFn, yadic);
         };
     }
 }
 
-function createModule(moduleFn, yadic) {
+function createComponent(moduleFn, yadic) {
     return resolveDependencies(moduleFn['@inject'] || [], yadic)
         .then(function(resolvedDeps) {
             switch(moduleFn['@type']) {
