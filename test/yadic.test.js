@@ -80,4 +80,18 @@ describe('yadic', function() {
         });
     });
 
+    it('should reject for unknown dependencies to inject', function() {
+        var ConstructorWithDependencies = jest.fn();
+        ConstructorWithDependencies['@type'] = 'constructor';
+        ConstructorWithDependencies['@inject'] = ['unknownDependency'];
+
+        yadic.addFactories({
+            'moduleWithDependencies': ConstructorWithDependencies
+        });
+
+        return yadic.get('moduleWithDependencies').catch(function (error) {
+            expect(error instanceof Error).toBe(true);
+        });
+    });
+
 });
