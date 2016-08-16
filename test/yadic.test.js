@@ -80,6 +80,14 @@ describe('yadic', function() {
         });
     });
 
+    it('should throw an error for invalid path', function() {
+        expect(function() {
+            new Yadic({
+                module: './a/b/c'
+            });
+        }).toThrow();
+    });
+
     it('should reject for unknown module', function() {
         return yadic.get('unknown-module').catch(function (error) {
             expect(error instanceof Error).toBe(true);
