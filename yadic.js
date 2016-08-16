@@ -2,10 +2,10 @@
 
 function Yadic(modules) {
     this.container = {};
-    this.addFactories(modules);
+    this.add(modules);
 }
 
-Yadic.prototype.addFactories = function(modules) {
+Yadic.prototype.add = function(modules) {
     for (var i in modules) {
         this.container[i] = createFactory(modules[i], this);
     }
