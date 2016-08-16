@@ -80,6 +80,12 @@ describe('yadic', function() {
         });
     });
 
+    it('should reject for unknown module', function() {
+        return yadic.get('unknown-module').catch(function (error) {
+            expect(error instanceof Error).toBe(true);
+        });
+    });
+
     it('should reject for unknown dependencies to inject', function() {
         var ConstructorWithDependencies = jest.fn();
         ConstructorWithDependencies['@type'] = 'constructor';
