@@ -24,12 +24,8 @@ function createFactory(mod, yadic) {
             if (mod['@type'] !== undefined) {
                 return createFactoryFromFunction(mod, yadic);
             }
-        case 'object':
-            if (mod !== null) {
-                return createFactoryFromPlainModule(mod, yadic);
-            }
         default:
-            throw new Error('module must be a path, function or object');
+            return createFactoryFromPlainModule(mod, yadic);
     }
 }
 

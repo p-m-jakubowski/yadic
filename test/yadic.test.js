@@ -8,35 +8,15 @@ describe('yadic', function() {
    
     describe('constructor', function() {
         
-        it('should load modules', function() {
+        it('should load modules of different types', function() {
             new Yadic({
-                functionModule: function() {},
-                objectModule: {}
+                A: function() {},
+                B: {},
+                C: 'string',
+                D: 1,
+                E: null,
+                F: undefined
             });
-        });
-
-        it('should throw when module is a string', function() {
-            expect(function() {
-                new Yadic({
-                    module: 'string'
-                });
-            }).toThrow();
-        });
-
-        it('should throw when module is null', function() {
-            expect(function() {
-                new Yadic({
-                    module: null
-                });
-            }).toThrow();
-        });
-
-        it('should throw when module is undefined', function() {
-            expect(function() {
-                new Yadic({
-                    module: undefined
-                });
-            }).toThrow();
         });
 
     });
