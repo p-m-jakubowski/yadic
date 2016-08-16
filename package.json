@@ -6,6 +6,14 @@
     "type": "git",
     "url": "https://github.com/p-m-jakubowski/yadic"
   },
+  "keywords": [
+    "di",
+    "dependency injection",
+    "container",
+    "dic",
+    "ioc",
+    "async"
+  ],
   "main": "yadic.js",
   "engines": {
     "node": ">=0.12.0"
