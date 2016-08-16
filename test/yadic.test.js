@@ -205,6 +205,22 @@ describe('yadic', function() {
                 });
         });
 
+        it('should reject for module with unknown type', function() {
+            var mod = function() {};
+            mod['@type'] = 'unknown';
+
+            var yadic = new Yadic({
+                unknownTypeModule: mod
+            });
+
+            return yadic.get('unknownTypeModule').then(function() {
+                    expect(false).toBe(true);
+                })
+                .catch(function(error) {
+                    expect(error instanceof Error).toBe(true);
+                });
+        });
+
     });
 
 });
