@@ -47,8 +47,8 @@ describe('yadic', function() {
                 constructorModule: Constructor
             });
 
-            return yadic.get('constructorModule').then(function(mod) {
-                expect(mod instanceof Constructor).toBe(true);
+            return yadic.get('constructorModule').then(function(component) {
+                expect(component instanceof Constructor).toBe(true);
             });
         });
 
@@ -60,9 +60,9 @@ describe('yadic', function() {
                 constructorModule: Constructor
             });
 
-            return yadic.get('constructorModule').then(function(modA) {
-                return yadic.get('constructorModule').then(function(modB) {
-                    expect(modA).not.toBe(modB);
+            return yadic.get('constructorModule').then(function(componentA) {
+                return yadic.get('constructorModule').then(function(componentB) {
+                    expect(componentA).not.toBe(componentB);
                 });
             });
         });
@@ -77,8 +77,8 @@ describe('yadic', function() {
                 factoryModule: factory
             });
 
-            return yadic.get('factoryModule').then(function(mod) {
-                expect(mod).toEqual({name:'instance'});
+            return yadic.get('factoryModule').then(function(component) {
+                expect(component).toEqual({name:'instance'});
             });
         });
 
@@ -92,9 +92,9 @@ describe('yadic', function() {
                 factoryModule: factory
             });
 
-            return yadic.get('factoryModule').then(function(modA) {
-                return yadic.get('factoryModule').then(function(modB) {
-                    expect(modA).not.toBe(modB);
+            return yadic.get('factoryModule').then(function(componentA) {
+                return yadic.get('factoryModule').then(function(componentB) {
+                    expect(componentA).not.toBe(componentB);
                 });
             });
         });
@@ -110,9 +110,9 @@ describe('yadic', function() {
                 singletonModule: Singleton
             });
 
-            return yadic.get('singletonModule').then(function(modA) {
-                return yadic.get('singletonModule').then(function(modB) {
-                    expect(modA).toBe(modB);
+            return yadic.get('singletonModule').then(function(componentA) {
+                return yadic.get('singletonModule').then(function(componentB) {
+                    expect(componentA).toBe(componentB);
                 });
             });
         });
@@ -143,8 +143,8 @@ describe('yadic', function() {
                 constructorWithDependencies: ConstructorWithDependencies
             });
 
-            return yadic.get('constructorWithDependencies').then(function(mod) {
-                expect(mod instanceof ConstructorWithDependencies).toBe(true);
+            return yadic.get('constructorWithDependencies').then(function(component) {
+                expect(component instanceof ConstructorWithDependencies).toBe(true);
                 expect(ConstructorWithDependencies.mock.calls[0][0]).toBe(plain);
                 expect(ConstructorWithDependencies.mock.calls[0][1] instanceof Constructor).toBe(true);
             });
