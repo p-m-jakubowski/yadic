@@ -133,7 +133,10 @@ describe('yadic', function() {
             var Constructor = function() {};
             Constructor['@type'] = 'constructor';
 
-            var ConstructorWithDependencies = jest.fn();
+            var ConstructorWithDependencies = function(plain, constructorComponent) {
+                this.plain = plain;
+                this.constructorComponent = constructorComponent;
+            };
             ConstructorWithDependencies['@type'] = 'constructor';
             ConstructorWithDependencies['@inject'] = ['plainModule', 'constructorModule'];
 
@@ -145,8 +148,8 @@ describe('yadic', function() {
 
             return yadic.get('constructorWithDependencies').then(function(component) {
                 expect(component instanceof ConstructorWithDependencies).toBe(true);
-                expect(ConstructorWithDependencies.mock.calls[0][0]).toBe(plain);
-                expect(ConstructorWithDependencies.mock.calls[0][1] instanceof Constructor).toBe(true);
+                expect(component.plain).toBe(plain);
+                expect(component.constructorComponent instanceof Constructor).toBe(true);
             });
         });
 
@@ -162,7 +165,7 @@ describe('yadic', function() {
         });
 
         it('should reject for unknown dependencies to inject', function() {
-            var ConstructorWithDependencies = jest.fn();
+            var ConstructorWithDependencies = function() {};
             ConstructorWithDependencies['@type'] = 'constructor';
             ConstructorWithDependencies['@inject'] = ['unknownDependency'];
 
