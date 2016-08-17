@@ -29,10 +29,10 @@ describe('yadic', function() {
             Constructor['@type'] = 'constructor';
 
             yadic.add({
-                constructorModule: Constructor
+                constructorComponent: Constructor
             });
 
-            return yadic.get('constructorModule');
+            return yadic.get('constructorComponent');
         });
 
     });
@@ -44,10 +44,10 @@ describe('yadic', function() {
             Constructor['@type'] = 'constructor';
 
             var yadic = new Yadic({
-                constructorModule: Constructor
+                constructorComponent: Constructor
             });
 
-            return yadic.get('constructorModule').then(function(component) {
+            return yadic.get('constructorComponent').then(function(component) {
                 expect(component instanceof Constructor).toBe(true);
             });
         });
@@ -57,11 +57,11 @@ describe('yadic', function() {
             Constructor['@type'] = 'constructor';
 
             var yadic = new Yadic({
-                constructorModule: Constructor
+                constructorComponent: Constructor
             });
 
-            return yadic.get('constructorModule').then(function(componentA) {
-                return yadic.get('constructorModule').then(function(componentB) {
+            return yadic.get('constructorComponent').then(function(componentA) {
+                return yadic.get('constructorComponent').then(function(componentB) {
                     expect(componentA).not.toBe(componentB);
                 });
             });
@@ -74,10 +74,10 @@ describe('yadic', function() {
             factory['@type'] = 'factory';
 
             var yadic = new Yadic({
-                factoryModule: factory
+                factoryComponent: factory
             });
 
-            return yadic.get('factoryModule').then(function(component) {
+            return yadic.get('factoryComponent').then(function(component) {
                 expect(component).toEqual({name:'instance'});
             });
         });
@@ -89,11 +89,11 @@ describe('yadic', function() {
             factory['@type'] = 'factory';
 
             var yadic = new Yadic({
-                factoryModule: factory
+                factoryComponent: factory
             });
 
-            return yadic.get('factoryModule').then(function(componentA) {
-                return yadic.get('factoryModule').then(function(componentB) {
+            return yadic.get('factoryComponent').then(function(componentA) {
+                return yadic.get('factoryComponent').then(function(componentB) {
                     expect(componentA).not.toBe(componentB);
                 });
             });
@@ -107,11 +107,11 @@ describe('yadic', function() {
             Singleton['@singleton'] = true;
 
             var yadic = new Yadic({
-                singletonModule: Singleton
+                singletonComponent: Singleton
             });
 
-            return yadic.get('singletonModule').then(function(componentA) {
-                return yadic.get('singletonModule').then(function(componentB) {
+            return yadic.get('singletonComponent').then(function(componentA) {
+                return yadic.get('singletonComponent').then(function(componentB) {
                     expect(componentA).toBe(componentB);
                 });
             });
@@ -138,10 +138,10 @@ describe('yadic', function() {
                 this.constructorComponent = constructorComponent;
             };
             ConstructorWithDependencies['@type'] = 'constructor';
-            ConstructorWithDependencies['@inject'] = ['plainModule', 'constructorModule'];
+            ConstructorWithDependencies['@inject'] = ['plainModule', 'constructorComponent'];
 
             var yadic = new Yadic({
-                constructorModule: Constructor,
+                constructorComponent: Constructor,
                 plainModule: plain,
                 constructorWithDependencies: ConstructorWithDependencies
             });
@@ -186,10 +186,10 @@ describe('yadic', function() {
             mod['@type'] = 'unknown';
 
             var yadic = new Yadic({
-                unknownTypeModule: mod
+                unknownTypeComponent: mod
             });
 
-            return yadic.get('unknownTypeModule').then(function() {
+            return yadic.get('unknownTypeComponent').then(function() {
                     expect(false).toBe(true);
                 })
                 .catch(function(error) {
