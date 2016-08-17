@@ -1,22 +1,26 @@
 'use strict';
 
-function Yadic(modules) {
-    this.container = {};
+function Yadic(modules, yadic) {
+    var container = {};
+
+    this.add = function(modules) {
+        for (var i in modules) {
+            container[i] = createFactory(modules[i], this);
+        }
+    };
+    
+    this.get = function(name) {
+        if (!(name in container)) {
+            if (!yadic) {
+                return Promise.reject(new Error('Unknown module ' + name));
+            }
+            return yadic.get(name);
+        }
+        return container[name]();
+    };
+
     this.add(modules);
 }
-
-Yadic.prototype.add = function(modules) {
-    for (var i in modules) {
-        this.container[i] = createFactory(modules[i], this);
-    }
-};
-
-Yadic.prototype.get = function(name) {
-    if (!(name in this.container)) {
-        return Promise.reject(new Error('Unknown module ' + name));
-    }
-    return this.container[name]();
-};
 
 function createFactory(mod, yadic) {
     switch (typeof mod) {

@@ -10,6 +10,8 @@ npm install --save yadic
 
 ## Usage
 
+### Basic
+
 ```javascript
 // components/componentA
 function Constructor(httpRequest, componentB) {
@@ -55,3 +57,19 @@ Module can be described with annotations.
 * `@inject` - list of components that should be injected into factory/constructor
 
 Module that is not a function or is a function without `@type` annotation is treated as singleton.  
+
+### Yadic chaining
+
+You can create yadic chain, that works similar to prototype chain.
+
+```javascript
+var protoYadic = new Yadic({
+    componentA: require('./components/componentA')
+});
+var yadic = new Yadic({
+    componentB: require('./components/componentB')
+}, protoYadic);
+
+// will return component from protoYadic
+yadic.get('componentA').then(/* ... */); 
+```

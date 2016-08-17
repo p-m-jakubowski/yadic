@@ -194,6 +194,33 @@ describe('yadic', function() {
                 });
         });
 
+        it('should use proto-yadic for undefined modules', function() {
+            var protoModuleA = {};
+            var protoYadic = new Yadic({
+                moduleA: protoModuleA,
+            });
+            var yadic = new Yadic({}, protoYadic);
+
+            return yadic.get('moduleA', function(mod) {
+                expect(mod).toBe(protoModuleA);
+            });
+        });
+
+        it('should not use proto-yadic for defined modules', function() {
+            var protoModuleA = {};
+            var protoYadic = new Yadic({
+                moduleA: protoModuleA,
+            });
+            var moduleA = {};
+            var yadic = new Yadic({
+                moduleA: moduleA
+            }, protoYadic);
+
+            return yadic.get('moduleA', function(mod) {
+                expect(mod).toBe(moduleA);
+            });
+        });
+
     });
 
 });
