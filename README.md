@@ -2,6 +2,12 @@
 
 Yadic is minimalistic JavaScript implementation of Dependency Injection Container with async components in mind.
 
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Basic](#basic)
+  * [Local modules](#local-modules)
+  * [Yadic chaining](#yadic-chaining)
+
 ## Installation
 
 ```
