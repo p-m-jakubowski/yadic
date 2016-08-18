@@ -224,6 +224,62 @@ describe('yadic', function() {
             });
         });
 
+        it('should use local yadic first when inject dependencies', function() {
+            var moduleA = {};
+            var Constructor = function(moduleA, moduleB) {
+                this.moduleA = moduleA;
+                this.moduleB = moduleB;
+            };
+            Constructor['@type'] = 'constructor';
+            Constructor['@inject'] = ['moduleA', 'moduleB'];
+            Constructor['@yadic'] = {
+                moduleA: moduleA
+            };
+
+            var moduleB = {};
+            var yadic = new Yadic({
+                constructorComponent: Constructor,
+                moduleA: {},
+                moduleB: moduleB
+            });
+
+            return yadic.get('constructorComponent').then(function(component) {
+                expect(component.moduleA).toBe(moduleA);
+                expect(component.moduleB).toBe(moduleB);
+            });
+        });
+
+        describe('local yadic', function() {
+            
+            it('should use modules from parent yadic', function() {
+                var LocalConstructor = function(mod) {
+                    this.mod = mod;
+                };
+                LocalConstructor['@type'] = 'constructor';
+                LocalConstructor['@inject'] = ['mod'];
+
+                var Constructor = function(localComponent) {
+                    this.localComponent = localComponent;
+                };
+                Constructor['@type'] = 'constructor';
+                Constructor['@inject'] = ['localComponent'];
+                Constructor['@yadic'] = {
+                    localComponent: LocalConstructor
+                };
+
+                var mod = {};
+                var yadic = new Yadic({
+                    constructorComponent: Constructor,
+                    mod: mod
+                });
+
+                return yadic.get('constructorComponent').then(function(component) {
+                    expect(component.localComponent.mod).toBe(mod);
+                });
+            });
+
+        });
+
     });
 
 });

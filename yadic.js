@@ -54,7 +54,15 @@ function createFactoryFromFunction(moduleFn, yadic) {
 }
 
 function createComponent(moduleFn, yadic) {
-    return resolveDependencies(moduleFn['@inject'] || [], yadic)
+    var extendedYadic;
+
+    if (moduleFn['@yadic']) {
+        extendedYadic = new Yadic(moduleFn['@yadic'], yadic); 
+    } else {
+        extendedYadic = yadic;
+    }
+
+    return resolveDependencies(moduleFn['@inject'] || [], extendedYadic)
         .then(function(resolvedDeps) {
             switch(moduleFn['@type']) {
                 case 'constructor': 

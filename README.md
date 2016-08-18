@@ -56,8 +56,45 @@ Module can be described with annotations.
   'constructor' or 'factory')
 * `@singleton` - indicates if component should be instantiated only once
 * `@inject` - list of components that should be injected into factory/constructor
+* `@yadic` - defines local modules, see [below](#local-modules)
 
 Module that is not a function or is a function without `@type` annotation is treated as singleton.  
+
+### Local modules
+
+You can define local modules by using `@yadic` annotation.  
+Local modules are visible only for module in which they were defined, but they can use modules that are part of their parent's container.
+
+``` javascript
+/* components/componentA */
+function Constructor() {
+    // ...
+}
+Constructor['@type'] = 'constructor';
+Constructor['@inject'] = ['componentB', 'localComponent'];
+Constructor['@yadic'] = {
+    'localComponent': require('./localComponent')
+};
+```
+
+``` javascript
+/* components/componentsA/localComponent */
+function LocalFactory() {
+    // ...
+}
+LocalFactory['@type'] = 'factory';
+LocalFactory['@inject'] = ['componentB'];
+```
+
+``` javascript
+/* index */
+const Yadic = require('yadic');
+
+var yadic = new Yadic({
+    componentA: require('./components/componentA'),
+    componentB: require('./components/componentB')
+});
+```
 
 ### Yadic chaining
 
