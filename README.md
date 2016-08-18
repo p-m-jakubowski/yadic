@@ -13,25 +13,25 @@ npm install --save yadic
 ### Basic
 
 ```javascript
-// components/componentA
+/* components/componentA */
 function Constructor(httpRequest, componentB) {
-    this.property = 'value';
     // ...
 }
 Constructor['@type'] = 'constructor';
 Constructor['@inject'] = ['httpRequest', 'componentB'];
+```
 
-// components/componentB
+```javascript
+/* components/componentB */
 function factory() {
-    // ...
-    return {
-        // ..
-    };
+    return {};
 }
 factory['@type'] = 'factory';
 factory['@singleton'] = true;
+```
 
-// index
+```javascript
+/* index */
 const Yadic = require('yadic');
 
 var yadic = new Yadic({
@@ -39,6 +39,7 @@ var yadic = new Yadic({
     httpRequest: require('request')
 });
 
+// you can add modules to container dynamically
 yadic.add({
     componentB: require('./components/componentB')
 });
