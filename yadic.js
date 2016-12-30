@@ -40,20 +40,6 @@ function createFactoryFromPlainModule(mod) {
 }
 
 function createFactoryFromFunction(moduleFn, yadic) {
-    if (moduleFn['@singleton']) {
-        var singleton;
-        return function() {
-            singleton = singleton || createComponent(moduleFn, yadic);
-            return singleton;
-        };
-    } else {
-        return function() {
-            return createComponent(moduleFn, yadic);
-        };
-    }
-}
-
-function createComponent(moduleFn, yadic) {
     var extendedYadic;
 
     if (moduleFn['@yadic']) {
@@ -62,7 +48,21 @@ function createComponent(moduleFn, yadic) {
         extendedYadic = yadic;
     }
 
-    return resolveDependencies(moduleFn['@inject'] || [], extendedYadic)
+    if (moduleFn['@singleton']) {
+        var singleton;
+        return function() {
+            singleton = singleton || createComponent(moduleFn, extendedYadic);
+            return singleton;
+        };
+    } else {
+        return function() {
+            return createComponent(moduleFn, extendedYadic);
+        };
+    }
+}
+
+function createComponent(moduleFn, yadic) {
+    return resolveDependencies(moduleFn['@inject'] || [], yadic)
         .then(function(resolvedDeps) {
             switch(moduleFn['@type']) {
                 case 'constructor': 
